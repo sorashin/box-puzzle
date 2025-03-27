@@ -31,6 +31,8 @@ function Scene() {
       
       {/* Directional light */}
       <directionalLight position={[10, 10, 5]} intensity={1} />
+      {/* Add Axis */}
+      <axesHelper args={[5]} />
       
       {/* Boxes */}
       {boxes.map((box) => (

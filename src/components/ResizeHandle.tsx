@@ -61,7 +61,11 @@ function ResizeHandle({ position, onDrag, axis }: ResizeHandleProps) {
       position={position}
       onPointerDown={handlePointerDown}
     >
-      <boxGeometry args={[0.1, 0.1, 0.1]} />
+      {axis === 'x' ? (
+        <boxGeometry args={[0.2, 0.05, 0.05]} />
+      ) : (
+        <boxGeometry args={[0.05, 0.2, 0.05]} />
+      )}
       <meshStandardMaterial color="#00ff00" />
     </mesh>
   );

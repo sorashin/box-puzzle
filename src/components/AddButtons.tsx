@@ -47,9 +47,9 @@ function AddButton({ position, direction, boxId }: AddButtonProps) {
     >
       <sphereGeometry args={[0.1, 16, 16]} />
       <meshStandardMaterial color={hovered ? '#00ff00' : '#ffffff'} />
-      <Html position={[0, 0, 0]} center>
+      {/* <Html position={[0, 0, 0]} center>
         <div className="text-white text-2xl font-bold">+</div>
-      </Html>
+      </Html> */}
     </mesh>
   );
 }
