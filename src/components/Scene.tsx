@@ -6,12 +6,12 @@ import Box from './Box';
 
 function Scene() {
   const [boxes] = useAtom(boxesAtom);
-  const [selectedBox, setSelectedBox] = useAtom(selectedBoxAtom);
+  const [, setSelectedBoxId] = useAtom(selectedBoxAtom);
   const [, setHoverInfo] = useAtom(hoverInfoAtom);
   
   // Handler for box hover
   const handleBoxHover = (id: string) => {
-    setHoverInfo({ id });
+    setHoverInfo({ id, direction: '' });
   };
   
   // Handler for box hover end
@@ -21,11 +21,15 @@ function Scene() {
   
   // Handler for box selection
   const handleBoxSelect = (id: string) => {
-    setSelectedBox(id === selectedBox ? null : id);
+    setSelectedBoxId(id === selectedBoxId ? null : id);
   };
-  
+
+  const handleCanvasClick = () => {
+    setSelectedBoxId(null);
+  };
+
   return (
-    <>
+    <group onClick={handleCanvasClick}>
       {/* Ambient light */}
       <ambientLight intensity={0.5} />
       
@@ -38,19 +42,18 @@ function Scene() {
       {boxes.map((box) => (
         <Box
           key={box.id}
-          id={box.id}
-          position={box.position}
-          size={box.size}
-          color={box.color}
-          onHover={handleBoxHover}
-          onHoverEnd={handleBoxHoverEnd}
-          onSelect={handleBoxSelect}
+          box={{
+            ...box,
+            onHover: handleBoxHover,
+            onHoverEnd: handleBoxHoverEnd
+          }}
+          onClick={() => setSelectedBoxId(box.id)}
         />
       ))}
       
       {/* Grid for reference */}
       <gridHelper args={[20, 20]} />
-    </>
+    </group>
   );
 }
 
